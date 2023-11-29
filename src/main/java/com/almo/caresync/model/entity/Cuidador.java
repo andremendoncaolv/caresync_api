@@ -1,10 +1,16 @@
 package com.almo.caresync.model.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +42,11 @@ public class Cuidador {
 	
 	@Column(name = "foto")
 	private String foto;
+	
+	// Relacionamento um para muitos com Paciente
+	@JsonIgnore
+    @OneToMany(mappedBy = "cuidador", cascade = CascadeType.ALL)
+    private List<Paciente> pacientes;
 
 	public Cuidador(String nome, String email,  String foto, String senha) {
 		super();

@@ -53,7 +53,12 @@ public class CuidadorSerciceImpl implements CuidadorService {
 	@Override
 	@Transactional
 	public Optional<Cuidador> obterPorId(Integer id) {
-		return cuidadorRepository.findById(id);
+		Optional<Cuidador> cuidador = Optional.ofNullable(new Cuidador());
+		cuidador = cuidadorRepository.findById(id);
+		if(!cuidador.isPresent()) {
+			throw new RegraNegocioException("Não exitem cuidador para este Id!");
+		}
+		return cuidador;
 	}
 
 	@Override

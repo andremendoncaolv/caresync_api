@@ -2,6 +2,7 @@ package com.almo.caresync.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,6 +83,18 @@ public class CuidadorController {
 			cuidadorService.deletar(entidade);
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}).orElseGet(() -> new ResponseEntity<>("Lancamento não encontrado na base de Dados", HttpStatus.BAD_REQUEST));
+		
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity obterPorId(@PathVariable("id") Integer id) {
+		Optional<Cuidador> cuidador = Optional.ofNullable(new Cuidador());
+		try {
+			cuidador = cuidadorService.obterPorId(id);
+			return ResponseEntity.ok(cuidador);
+		} catch (RegraNegocioException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 		
 	}
 
