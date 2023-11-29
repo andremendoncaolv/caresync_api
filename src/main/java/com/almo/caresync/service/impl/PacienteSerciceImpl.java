@@ -2,6 +2,7 @@ package com.almo.caresync.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,7 @@ public class PacienteSerciceImpl implements PacienteService {
 
 	@Override
 	public Optional<Paciente> obterPorId(Integer id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return pacienteRepository.findById(id);
 	}
 
 	@Override
@@ -44,15 +44,15 @@ public class PacienteSerciceImpl implements PacienteService {
 	}
 
 	@Override
-	public Paciente atualizar(Paciente Paciente) {
-		// TODO Auto-generated method stub
-		return null;
+	public Paciente atualizar(Paciente paciente) {
+		Objects.requireNonNull(paciente.getIdPaciente());
+		return pacienteRepository.save(paciente);
 	}
 
 	@Override
 	public void deletar(Paciente entidade) {
-		// TODO Auto-generated method stub
-
+		Objects.requireNonNull(entidade.getIdPaciente());
+		pacienteRepository.delete(entidade);
 	}
 
 }

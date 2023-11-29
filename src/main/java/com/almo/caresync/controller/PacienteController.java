@@ -60,6 +60,7 @@ public class PacienteController {
 			try {
 				Paciente paciente  = converterDto(dto);
 				paciente.setIdPaciente(entity.getIdPaciente());
+				paciente.setCuidador(entity.getCuidador());
 				pacienteService.atualizar(paciente);
 				return ResponseEntity.ok(paciente);
 			} catch (RegraNegocioException e) {
@@ -85,9 +86,6 @@ public class PacienteController {
 		paciente.setDataNascimento(dto.getDataNascimento());
 		paciente.setGenero(dto.getGenero());
 		paciente.setEndereco(dto.getEndereco());
-		
-		Optional<Cuidador> cuidador = cuidadorService.obterPorId(dto.getIdCuidador());
-		paciente.setCuidador(cuidador.get());
 		return paciente;
 	}
 }
